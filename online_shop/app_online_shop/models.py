@@ -19,9 +19,3 @@ class OnlineShop(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
 
     update_time = models.DateTimeField(auto_now=True)
-
-    class Meta():
-        db_table = 'advertisements'
-
-    def __str__(self):
-        return f'id={self.id}, title={self.title}, price={self.price}'
