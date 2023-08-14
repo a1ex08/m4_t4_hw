@@ -1,12 +1,15 @@
 from django.shortcuts import render
 # Подключаем объект для выполнения HTTP-запроса
 from django.http import HttpResponse
+from .models import OnlineShop
 
 # Create your views here.
 
 # Функция, отображающая index.html
 def index(request):
-    return render(request, 'index.html')
+    online_shops = OnlineShop.objects.all()
+    context = {'online_shops': online_shops}
+    return render(request, 'index.html', context)
 
 # Функция, отображающая top-sellers.html
 def top_sellers(request):
