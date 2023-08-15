@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib import admin
 from django.utils.html import format_html
 from django.contrib.auth import get_user_model
+from online_shop.settings import STATIC_URL
 
 # Create your models here.
 
@@ -27,7 +28,7 @@ class OnlineShop(models.Model):
 
     user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
 
-    image = models.ImageField(verbose_name='Изображение', upload_to='online_shop/')
+    image = models.ImageField(verbose_name='Изображение', upload_to='online_shop/', blank=True)
 
     # Создаем функцию для столбца 'Дата создания' админки
     @admin.display(description='Дата создания')
@@ -50,8 +51,29 @@ class OnlineShop(models.Model):
                 '<span style="color: orange; font-weight: bold;">Сегодня в {}</span>', updated_time
             )
         return self.updated_time.strftime("%d.%m.%Y в %H:%M:%S")
-
-
+    
+    @admin.display(description='Предпросмотр изображения')
+    def preview_img(self): 
+        # Если есть картинка, то покажем ее
+        if self.image:
+            return format_html('''
+                                    <a href="{}"><img src="{}" height=150 width=250></a>
+                               ''',
+                                self.image.url,
+                                self.image.url
+            )
+        # Если картинки нет то покажем картинку по умолчанию
+        else:
+            # Наверно можно добраться до static из admin проще, но я не нашел как...
+            # Если можно, подскажите... :)
+            img_url = f"../../../{STATIC_URL}img/shop.png"
+            return format_html('''
+                                    <a href="{}"><img src="{}" height=150 width=250></a>
+                                ''',
+                                img_url,
+                                img_url
+            )
+        
     class Meta():
         db_table = 'advertisements'
 

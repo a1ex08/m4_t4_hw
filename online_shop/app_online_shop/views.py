@@ -5,6 +5,7 @@ from .models import OnlineShop
 from .forms import AdvertisementForm
 from django.urls import reverse
 
+
 # Create your views here.
 
 # Функция, отображающая index.html

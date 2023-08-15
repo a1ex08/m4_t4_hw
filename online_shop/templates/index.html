@@ -99,7 +99,7 @@
     {% for adv in online_shops %}
     <div class="card mb-2" style="max-width: 1200px; margin-top: 20px;">
       <div class="row g-0">
-        <img src="{% if adv.image  %} {{ adv.image.url }} {% endif %}">
+        <img src="{% if adv.image  %} {{ adv.image.url }} {% else %} {% static 'img/shop.png' %} {% endif %}">
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title">

@@ -5,7 +5,7 @@ from .models import OnlineShop
 
 # создаем класс для отображения модели в панели администрирования
 class OnlineShopAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'description', 'price', 'created_time', 'auction', 'image', 'user']
+    list_display = ['id', 'title', 'description', 'price', 'created_date', 'auction', 'preview_img', 'user']
     list_filter = ['auction', 'created_time']
     actions = ['make_auction_as_false', 'make_auction_as_true']
 
