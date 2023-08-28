@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 # Подключаем объект для выполнения HTTP-запроса
 from django.http import HttpResponse
 from .models import OnlineShop
-from .forms import AdvertisementForm
+# from .forms import AdvertisementForm
+from .forms import AdvertisementModelForm
 from django.urls import reverse
 
 
@@ -21,7 +22,10 @@ def top_sellers(request):
 def advertisment_post(request):
     # Проверка на пост запрос
     if request.method == 'POST':
-        form = AdvertisementForm(request.POST, request.FILES)
+        ## Получение формы через класс унаследованный от Form
+        # form = AdvertisementForm(request.POST, request.FILES)
+        ## Получение формы через класс унаследованный от ModelForm
+        form = AdvertisementModelForm(request.POST, request.FILES)
         if form.is_valid():
             advertisement = OnlineShop(**form.cleaned_data)
             advertisement.user = request.user
@@ -29,7 +33,10 @@ def advertisment_post(request):
             url = reverse('main-page')
             return redirect(url)
     else:
-        form = AdvertisementForm()
+        ## Отображение формы через класс унаследованный от Form
+        # form = AdvertisementForm()
+        ## Отображение формы через класс унаследованный от ModelForm
+        form = AdvertisementModelForm()
     context = {'form':form}
     return render(request, 'advertisement-post.html', context)
 
