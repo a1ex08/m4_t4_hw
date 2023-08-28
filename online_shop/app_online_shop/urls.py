@@ -6,7 +6,7 @@ urlpatterns = [
     path('top-sellers/', top_sellers, name='top-sellers'),
     path('advertisement-post/', advertisment_post, name='advertisement-post'),
     path('advertisement/', advertisment, name='advertisement'),
-    # path('login/', login, name='login'),
-    # path('profile/', profile, name='profile'),
-    # path('register/', register, name='register'),
+    path('login/', login, name='login'),
+    path('profile/', profile, name='profile'),
+    path('register/', register, name='register'),
 ]

@@ -51,6 +51,14 @@
       </div>
     </div>
   </div>
+
+  <div class="container">
+    {% if error %}
+    <div class="col-sm-4 offset-4 w-25">
+      <div class="form-label bg-warning" style="margin: 10px 0px; ">{{ error }}</div>
+  </div>
+  {% endif %}
+
     <form method="post">
       <div class="row mb-3">
         <div class="col">

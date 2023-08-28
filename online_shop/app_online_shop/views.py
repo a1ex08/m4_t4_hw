@@ -4,14 +4,20 @@ from django.http import HttpResponse
 from .models import OnlineShop
 # from .forms import AdvertisementForm
 from .forms import AdvertisementModelForm
-from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse, reverse_lazy
+
 
 
 # Create your views here.
 
 # Функция, отображающая index.html
 def index(request):
-    online_shops = OnlineShop.objects.all()
+    query = request.GET.get('query')
+    if query:
+        online_shops = OnlineShop.objects.filter(title=query)
+    else:
+        online_shops = OnlineShop.objects.all()
     context = {'online_shops': online_shops}
     return render(request, 'app_advertisement/index.html', context)
 
@@ -19,6 +25,7 @@ def index(request):
 def top_sellers(request):
     return render(request, 'app_advertisement/top-sellers.html')
 
+@login_required(login_url=reverse_lazy('login'))
 def advertisment_post(request):
     # Проверка на пост запрос
     if request.method == 'POST':
@@ -27,7 +34,8 @@ def advertisment_post(request):
         ## Получение формы через класс унаследованный от ModelForm
         form = AdvertisementModelForm(request.POST, request.FILES)
         if form.is_valid():
-            advertisement = OnlineShop(**form.cleaned_data)
+            # advertisement = OnlineShop(**form.cleaned_data)
+            advertisement = form.save(commit=False)
             advertisement.user = request.user
             advertisement.save()
             url = reverse('main-page')
