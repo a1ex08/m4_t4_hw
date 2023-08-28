@@ -13,11 +13,11 @@ from django.urls import reverse
 def index(request):
     online_shops = OnlineShop.objects.all()
     context = {'online_shops': online_shops}
-    return render(request, 'index.html', context)
+    return render(request, 'app_advertisement/index.html', context)
 
 # Функция, отображающая top-sellers.html
 def top_sellers(request):
-    return render(request, 'top-sellers.html')
+    return render(request, 'app_advertisement/top-sellers.html')
 
 def advertisment_post(request):
     # Проверка на пост запрос
@@ -38,16 +38,16 @@ def advertisment_post(request):
         ## Отображение формы через класс унаследованный от ModelForm
         form = AdvertisementModelForm()
     context = {'form':form}
-    return render(request, 'advertisement-post.html', context)
+    return render(request, 'app_advertisement/advertisement-post.html', context)
 
 def advertisment(request):
-    return render(request, 'advertisement.html')
+    return render(request, 'app_advertisement/advertisement.html')
 
 def login(request):
-    return render(request, 'login.html')
+    return render(request, 'app_auth/login.html')
 
 def profile(request):
-    return render(request, 'profile.html')
+    return render(request, 'app_auth/profile.html')
 
 def register(request):
-    return render(request, 'register.html')
+    return render(request, 'app_auth/register.html')
