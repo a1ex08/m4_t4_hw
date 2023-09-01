@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse, reverse_lazy 
+from django.urls import reverse, reverse_lazy
+from .forms import CreationForm
 
 # Create your views here.
 
@@ -39,4 +40,16 @@ def profile(request):
     return render(request, 'app_auth/profile.html')
 
 def register(request):
-    return render(request, 'app_auth/register.html')
+    if request.method == 'GET':
+        return render(request, 'app_auth/register.html')
+    elif request.method == 'POST':
+        form = CreationForm(request.POST, request.FILES)
+        # Проверим введенные на форму данные
+        if form.is_valid():
+            # Сохраним пользователя
+            form.save()
+            # Перейдем на главную страницу
+            return redirect(reverse('main-page'))
+        else:
+            return render(request, 'app_auth/register.html', {'error': 'Ошибка регистрации пользователя'})
+

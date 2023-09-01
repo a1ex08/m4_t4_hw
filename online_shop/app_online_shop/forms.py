@@ -30,4 +30,4 @@ class AdvertisementModelForm(ModelForm):
         data = self.cleaned_data['title']
         if data.startswith('?'):
             raise ValueError('Заголовок не может начинаться с вопросительного знака.')
-        return data        
+        return data
