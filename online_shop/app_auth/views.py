@@ -21,7 +21,7 @@ def login_view(request):
 
     username = request.POST['username']
     password = request.POST['password']
-    user = authenticate(request, username, password)
+    user = authenticate(request=request, username=username, password=password)
     
     # Проверка, что нашлась комбинация логина и пароля
     if user is not None:
@@ -34,11 +34,6 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect(reverse('login'))
-
-
-
-def login(request):
-    return render(request, 'app_auth/login.html')
 
 def profile(request):
     return render(request, 'app_auth/profile.html')

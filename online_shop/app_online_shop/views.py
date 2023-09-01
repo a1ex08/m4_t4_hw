@@ -8,9 +8,6 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
 
 
-
-# Create your views here.
-
 # Функция, отображающая index.html
 def index(request):
     query = request.GET.get('query')
@@ -50,12 +47,3 @@ def advertisment_post(request):
 
 def advertisment(request):
     return render(request, 'app_advertisement/advertisement.html')
-
-def login(request):
-    return render(request, 'app_auth/login.html')
-
-def profile(request):
-    return render(request, 'app_auth/profile.html')
-
-def register(request):
-    return render(request, 'app_auth/register.html')
